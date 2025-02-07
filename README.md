@@ -1,7 +1,10 @@
 ### ClothShop
 
-Pour démarrer le projet, cloner le repo, à la racine du repo,
-exécuter la commande dans le terminal :
+Pour démarrer le projet, cloner le repo :
+
+git clone https://github.com/baptiste-boimard/ClothShop-Nestjs-Angular.git
+
+A la racine du repo, exécuter la commande dans le terminal :
 
 docker compose up --build
 
