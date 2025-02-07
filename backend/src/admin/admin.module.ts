@@ -3,6 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service'; // s'il existe
 import { RolesGuard } from '../guards/roles.guard';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { RolesGuard } from '../guards/roles.guard';
     // Autres modules dont vous avez besoin
   ],
   controllers: [AdminController],
-  providers: [AdminService, RolesGuard],
+  providers: [AdminService, RolesGuard, JwtAuthGuard],
 })
 export class AdminModule {}

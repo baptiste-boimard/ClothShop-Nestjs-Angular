@@ -28,7 +28,7 @@
 
 <div style="margin-left: 50px;">
   <p>Nombre de produits commandés : {{ totalSales }}</p>
-  <p>Meilleur produit vendu : {{ mostSoldProduct.name }} (  {{ mostSoldProduct.saled }} fois)</p>
+  <p>Meilleur produit vendu : {{ mostSoldProduct?.name }} ({{ mostSoldProduct?.saled }} fois)</p>
   <table class="table">
     <thead>
       <tr>
@@ -79,7 +79,7 @@
   </div>
   
   <div class="card" style="width: 2rem;" style="display: flex; flex-direction: column; margin-bottom: 1rem; border: 1px solid #ccc; padding: 1rem; margin-left: 4rem; border: none; margin-top: 25px;">
-    <button *ngIf="!product.editMode" style="margin-bottom: 10px;" class="btn btn-danger" (click)="deleteProduct(product)">Supprimer</button>
+    <button *ngIf="!product.editMode" style="margin-bottom: 10px; width: 100px;" class="btn btn-danger" (click)="deleteProduct(product)">Supprimer</button>
     <button *ngIf="!product.editMode" class="btn btn-success" (click)="product.editMode = true">Éditer</button>
     <button *ngIf="product.editMode" style="margin-bottom: 20px; margin-top: -20px; font-size: small; width: 100px; margin-right: 2rem;" class="btn btn-success" (click)="saveProduct(product)">Sauvegarder</button>
     <button *ngIf="product.editMode" style="font-size: small;" class="btn btn-secondary" (click)="cancelEdit(product)">Annuler</button>

@@ -24,6 +24,9 @@ export class Cart {
   @Column({ default: false })
   isValidate: boolean;
 
+  @Column({ type: 'timestamp', nullable: true })
+  createdat: Date;
+
   // Définition de la relation avec l'entité Product.
   // Le JoinColumn indique que la colonne 'idProduct' dans la table cart est utilisée pour la jointure.
   @ManyToOne(() => Product, { eager: true })

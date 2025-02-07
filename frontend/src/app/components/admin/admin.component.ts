@@ -15,11 +15,11 @@ import { AuthService } from '../../services/auth.service';
 
 })
 export class AdminComponent implements OnInit {
-  adminMessage: string = '';
+  // adminMessage: string = '';
   products: Product[] = [];
   isAdmin: boolean = false;
   totalSales: number = 0;
-  mostSoldProduct: any = null;
+  mostSoldProduct?: Product;
   
   constructor(
     private adminService: AdminService,
@@ -28,15 +28,15 @@ export class AdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.adminService.getAdminData().subscribe({
-      next: (res) => {
-        console.log('✅ Données admin reçues:', res);
-        this.adminMessage = res.message;
-      },
-      error: (err) => {
-        console.error('❌ Erreur lors de la récupération des données admin:', err);
-      }
-    });
+    // this.adminService.getAdminData().subscribe({
+    //   next: (res) => {
+    //     console.log('✅ Données admin reçues:', res);
+    //     this.adminMessage = res.message;
+    //   },
+    //   error: (err) => {
+    //     console.error('❌ Erreur lors de la récupération des données admin:', err);
+    //   }
+    // });
 
     this.productService.getProducts().subscribe({
       next: (data) => {

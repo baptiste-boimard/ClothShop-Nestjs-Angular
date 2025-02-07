@@ -18,6 +18,6 @@ export const appConfig: ApplicationConfig = {
       BrowserModule,
       BrowserAnimationsModule,
       ReactiveFormsModule,
-      RouterModule.forRoot(appRoutes))
+      RouterModule.forRoot(appRoutes)),
     ],
 };

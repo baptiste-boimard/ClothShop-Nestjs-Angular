@@ -17,6 +17,9 @@ export class Product {
   @Column()
   stock: number;
 
+  @Column({ nullable: true })
+  saled: number;
+
   @Column()
   urlimage: string;
 }

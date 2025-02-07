@@ -27,14 +27,6 @@ export class CartService {
     return await this.cartRepository.save(createCartDto);
   }
 
-  // async updateCart(id: number, updateCartDto: any) {
-  //   return await this.cartRepository.update(id, updateCartDto);
-  // }
-
-  // async deleteCart(id: number) {
-  //   return await this.cartRepository.delete(id);
-  // }
-
   async validateCart(
     cartItems: {
       id: number;
@@ -47,11 +39,17 @@ export class CartService {
       await this.productRepository
         .createQueryBuilder()
         .update(Product)
-        .set({ stock: () => `stock - ${item.quantity}` })
+        .set({
+          stock: () => `stock - ${item.quantity}`,
+          saled: () => `saled + ${item.quantity}`,
+        })
         .where('id = :id', { id: item.idProduct })
         .execute();
 
-      await this.cartRepository.update({ id: item.id }, { isValidate: true });
+      await this.cartRepository.update(
+        { id: item.id },
+        { isValidate: true, createdat: () => 'NOW()' },
+      );
     }
   }
 }
