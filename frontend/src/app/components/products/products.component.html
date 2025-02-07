@@ -1,0 +1,29 @@
+<button *ngIf="isAdmin" class="btn btn-primary" (click)="navigateToAdmin()">Aller sur la page Admin</button>
+<button class="btn btn-primary" (click)="navigateToCart()">Voir son panier</button>
+<div class="product-card" *ngFor="let product of products" style="display: flex; flex-direction: column; margin-bottom: 1rem; border: 1px solid #ccc; padding: 1rem;">
+  <!-- Ligne supérieure : Informations du produit -->
+  <div style="display: flex; justify-content: space-between;">
+    <div class="card-left" style="flex: 1;">
+      <div class="product-name">{{ product.name }}</div>
+      <div class="product-description">{{ product.description }}</div>
+      <div class="product-stock">Stock : {{ product.stock }}</div>
+    </div>
+    <div class="card-right" style="flex: 1; text-align: center;">
+      <img [src]="product.urlimage" alt="Image du produit" class="product-image" style="max-width: 100px; display: block; margin: 0 auto;">
+      <div class="product-price">{{ product.price }}</div>
+    </div>
+  </div>
+  
+  <!-- Ligne inférieure : Zone d'action avec input pour la quantité et bouton d'ajout au panier -->
+  <div class="card-bottom" style="margin-top: 1rem; text-align: center;">
+    <!-- Input pour saisir la quantité, lié à product.selectedQuantity -->
+    <input type="number"
+           [(ngModel)]="product.selectedQuantity"
+           min="0"
+           class="form-control"
+           style="max-width: 100px; display: inline-block; margin-right: 0.5rem;"
+           placeholder="0">
+    <!-- Bouton pour ajouter au panier, qui utilise product.selectedQuantity -->
+    <button class="btn btn-primary" (click)="addToCart(product)">Ajouter au panier</button>
+  </div>
+</div>

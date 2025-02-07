@@ -1,0 +1,37 @@
+<div class="admin-container">
+    <h2>Page Admin</h2>
+    <p *ngIf="adminMessage">{{ adminMessage }}</p>
+
+    <!-- Bouton global pour ajouter un nouveau produit -->
+    <button class="btn btn-primary" (click)="onAddProduct()">Ajouter un nouveau produit</button>
+
+    <div class="product-card" *ngFor="let product of products" style="display: flex; align-items: center; margin-bottom: 1rem;">
+      <div class="card-left" style="flex: 1;">
+        <div class="product-name">{{ product.name }}</div>
+        <div class="product-description">{{ product.description }}</div>
+        <div class="product-stock">Stock: {{ product.stock }}</div>
+      </div>
+      <div *ngIf="product.editMode">
+        <input type="text" [(ngModel)]="product.name" placeholder="Nom du produit" class="form-control" />
+        <input type="text" [(ngModel)]="product.description" placeholder="Description" class="form-control" />
+        <input type="number" [(ngModel)]="product.stock" placeholder="Stock" class="form-control" />
+      </div>
+      
+      <div class="card-right" style="flex: 1; text-align: center;">
+        <img [src]="product.urlimage" alt="Product Image" class="product-image" style="max-width: 100px; display: block; margin: 0 auto;">
+        <div class="product-price">{{ product.price }}</div>
+      </div>
+      <div *ngIf="product.editMode">
+        <input type="text" [(ngModel)]="product.urlimage" placeholder="URL de l'image" class="form-control" />
+        <input type="number" [(ngModel)]="product.price" placeholder="Prix" class="form-control" />
+      </div>
+      
+      <div class="card-actions" style="flex: 1; text-align: center;">
+        <button *ngIf="!product.editMode" class="btn btn-danger" (click)="deleteProduct(product)">Supprimer</button>
+        <button *ngIf="!product.editMode" class="btn btn-success" (click)="product.editMode = true">Éditer</button>
+        <button *ngIf="product.editMode" class="btn btn-success" (click)="saveProduct(product)">Sauvegarder</button>
+        <button *ngIf="product.editMode" class="btn btn-secondary" (click)="cancelEdit(product)">Annuler</button>
+      </div>
+    </div>
+  </div>
+  

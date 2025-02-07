@@ -1,0 +1,36 @@
+<div class="auth-container">
+  <img src="assets/logo.png" alt="Logo" class="logo">
+
+  <div class="card auth-card">
+    <h2 class="text-center">{{ isLogin ? 'Connexion' : 'Inscription' }}</h2>
+
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="email" class="form-control" formControlName="email">
+        <div *ngIf="authForm.get('email')?.invalid && authForm.get('email')?.touched" class="text-danger">
+          Email invalide
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Mot de passe</label>
+        <input type="password" class="form-control" formControlName="password">
+        <div *ngIf="authForm.get('password')?.invalid && authForm.get('password')?.touched" class="text-danger">
+          Mot de passe requis (6 caractères min.)
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="authForm.invalid">
+        {{ isLogin ? 'Se connecter' : "S'inscrire" }}
+      </button>
+
+      <div class="text-center mt-2">
+        <a href="#" (click)="toggleMode()">
+          {{ isLogin ? "Pas encore inscrit ?" : "Déjà un compte ?" }}
+        </a>
+      </div>
+    </form>
+  </div>
+  <router-outlet></router-outlet>
+</div>

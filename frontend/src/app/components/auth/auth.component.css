@@ -1,0 +1,24 @@
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f9fa; /* Couleur de fond */
+  }
+  
+  .auth-card {
+    width: 350px; /* Réduction de la taille du formulaire */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+  }
+  
+  .logo {
+    display: block !important;
+    width: 200px !important;
+    height: auto !important;
+    border: 2px solid red !important; /* Ajoute une bordure rouge pour voir si l'image est affichée */
+  }
+  
