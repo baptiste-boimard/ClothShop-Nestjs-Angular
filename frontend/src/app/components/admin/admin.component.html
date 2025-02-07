@@ -1,8 +1,53 @@
 
-<h3>Bienvenue sur votre page admin</h3>
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="margin-bottom: 20px;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Clothshop</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" [routerLink]="['/products']">Produits</a>
+          <button class="navbar-toggler">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/cart']">Votre panier</a>
+          <button class="navbar-toggler">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<h3 style="margin-left: 50px;">Bienvenue sur votre page admin</h3>
+
+<div style="margin-left: 50px;">
+  <p>Nombre de produits commandés : {{ totalSales }}</p>
+  <p>Meilleur produit vendu : {{ mostSoldProduct.name }} (  {{ mostSoldProduct.saled }} fois)</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 300px;" scope="col">Produit</th>
+        <th style="width: 100px;" scope="col">Stock</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of products">
+        <td>{{ item.name }}</td>
+        <td>{{ item.stock }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <!-- Bouton global pour ajouter un nouveau produit -->
-<button style="margin-bottom: 30px;" class="btn btn-primary" (click)="onAddProduct()">Ajouter un nouveau produit</button>
+<button style="margin-bottom: 30px; margin-left: 50px;" class="btn btn-primary" (click)="onAddProduct()">Ajouter un nouveau produit</button>
 
 <div class="card" style="width: 18rem;" *ngFor="let product of products" style="display: flex; flex-direction: row; margin-bottom: 1rem; border: 1px solid #ccc; padding: 1rem; margin-left: 2rem; width: 60%;">
   <div style="display: flex; flex-direction: row;">

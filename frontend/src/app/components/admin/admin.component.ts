@@ -4,21 +4,27 @@ import { CommonModule,  } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../interfaces/product.interface';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
 
 })
 export class AdminComponent implements OnInit {
   adminMessage: string = '';
   products: Product[] = [];
+  isAdmin: boolean = false;
+  totalSales: number = 0;
+  mostSoldProduct: any = null;
   
   constructor(
     private adminService: AdminService,
-    private productService: ProductService
+    private productService: ProductService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -35,11 +41,21 @@ export class AdminComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (data) => {
         this.products = data;
+        console.log("Produits récupérés:", data);
+
+        this.totalSales = data.reduce((acc, product) => acc + product.stock, 0);
+        this.mostSoldProduct = data.reduce((maxProduct, currentProduct) => {
+          return currentProduct.saled > maxProduct.saled ? currentProduct : maxProduct;
+        }, data[0]);
+        
       },
       error: (err) => {
         console.error("Erreur lors de la récupération des produits", err);
       }
     });
+
+    const payload = this.authService.getCurrentUserRole();
+    this.isAdmin = payload?.role === 'admin';
   }
 
   deleteProduct(product: Product): void {
@@ -67,7 +83,8 @@ export class AdminComponent implements OnInit {
       stock: 0,
       urlimage: '',
       editMode: true,
-      selectedQuantity: 0
+      selectedQuantity: 0,
+      saled: 0
     };
     // Ajoute en début de liste ou en fin, selon vos besoins
     this.products.unshift(newProduct);

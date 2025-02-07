@@ -34,9 +34,13 @@ export class AuthService {
 
   setCurrentUser(payload: JwtContent) {
     this.currentPayloadSubject.next(payload);
+    console.log('currentPayloadSubject:', this.currentPayloadSubject);
+    
   }
 
   getCurrentUserRole(): JwtContent | null {
+    console.log('currentPayloadSubject:', this.currentPayloadSubject);
+    
     const payload = this.currentPayloadSubject.value;
     return payload ? payload : null;
   }

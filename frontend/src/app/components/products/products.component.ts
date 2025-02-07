@@ -4,7 +4,7 @@ import { Product } from '../../interfaces/product.interface';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 
@@ -12,7 +12,7 @@ import { CartService } from '../../services/cart.service';
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   animations: [
     trigger('flyInOut', [
       state('in', style({ opacity: 1, transform: 'translateX(0)' })),

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { Product } from '../../interfaces/product.interface';
+import { RouterModule } from '@angular/router';
 
 export interface Cart {
   id: number,
@@ -12,18 +13,21 @@ export interface Cart {
   price: number,
   product: Product,
   isValidate: boolean,
+  createdat: Date,
 }
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
 })
 export class CartComponent implements OnInit {
   cartItems: Cart[] = [];
   total: number = 0;
   isCartValided: boolean = false;
+  isAdmin: boolean = false;
+  createdAt: Date = new Date();
 
   constructor(
     private cartService: CartService,
@@ -34,6 +38,8 @@ export class CartComponent implements OnInit {
     // Récupérarer l'id user
     const payload = this.authService.getCurrentUserRole();
     console.log('Payload:', payload);
+
+    this.isAdmin = payload?.role === 'admin'; 
     
     const idUser = payload?.id;
     console.log('ID utilisateur:', idUser);
@@ -45,9 +51,8 @@ export class CartComponent implements OnInit {
         if(data) {
           const cartItems: Cart[] = data;
           const isValidated = cartItems.some(cart => cart.isValidate === true)
-          this.isCartValided = isValidated;        
-        }
-          this.cartItems = data;
+          this.isCartValided = isValidated;        }
+        this.cartItems = data;
       },
       error: (err) => {
         console.error('Erreur lors de la récupération du panier:', err);
@@ -65,6 +70,7 @@ export class CartComponent implements OnInit {
     this.cartService.validateCart(this.cartItems).subscribe({
       next: (data) => {
         console.log('Panier validé:');
+        this.createdAt = new Date();
         this.isCartValided = true;
       },
       error: (err) => {
