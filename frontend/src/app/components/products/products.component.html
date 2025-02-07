@@ -1,29 +1,49 @@
-<button *ngIf="isAdmin" class="btn btn-primary" (click)="navigateToAdmin()">Aller sur la page Admin</button>
-<button class="btn btn-primary" (click)="navigateToCart()">Voir son panier</button>
-<div class="product-card" *ngFor="let product of products" style="display: flex; flex-direction: column; margin-bottom: 1rem; border: 1px solid #ccc; padding: 1rem;">
-  <!-- Ligne supérieure : Informations du produit -->
-  <div style="display: flex; justify-content: space-between;">
-    <div class="card-left" style="flex: 1;">
-      <div class="product-name">{{ product.name }}</div>
-      <div class="product-description">{{ product.description }}</div>
-      <div class="product-stock">Stock : {{ product.stock }}</div>
-    </div>
-    <div class="card-right" style="flex: 1; text-align: center;">
-      <img [src]="product.urlimage" alt="Image du produit" class="product-image" style="max-width: 100px; display: block; margin: 0 auto;">
-      <div class="product-price">{{ product.price }}</div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Clothshop</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/admin">Votre page Admin</a>
+          <button *ngIf="isAdmin" class="navbar-toggler" (click)="navigateToAdmin()">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cart">Votre panier</a>
+          <button class="navbar-toggler" (click)="navigateToCart()">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
-  
-  <!-- Ligne inférieure : Zone d'action avec input pour la quantité et bouton d'ajout au panier -->
-  <div class="card-bottom" style="margin-top: 1rem; text-align: center;">
-    <!-- Input pour saisir la quantité, lié à product.selectedQuantity -->
-    <input type="number"
-           [(ngModel)]="product.selectedQuantity"
-           min="0"
-           class="form-control"
-           style="max-width: 100px; display: inline-block; margin-right: 0.5rem;"
-           placeholder="0">
-    <!-- Bouton pour ajouter au panier, qui utilise product.selectedQuantity -->
-    <button class="btn btn-primary" (click)="addToCart(product)">Ajouter au panier</button>
+</nav>
+
+<div class="card" style="width: 18rem;" *ngFor="let product of products" style="display: flex; flex-direction: column; margin-bottom: 1rem; border: 1px solid #ccc; padding: 1rem; margin-left: 2rem; width: 60%;">
+  <div style="display: flex; flex-direction: row;">
+    <div>
+      <img [src]="product.urlimage" class="card-img-top" alt="..." style="max-width: 150px; max-height: 150px;">
+    </div>
+    <div class="card-body">
+      <p style="font-weight: 700; margin-top: -20px;">{{ product.name }}</p>
+      <p style="text-decoration: underline; margin-top: -10px;">description :</p>
+      <p style="margin-top: -10px; font-size:small;"> {{ product.description }}</p>
+      <p style="margin-top: 50px; margin-bottom: -16px;">Stock : {{ product.stock }}</p>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <p style="font-size: larger; margin-right: 20px; margin-top: 20px;">{{ product.price }} €</p>
+      <button style="font-size: small;" class="btn btn-primary" (click)="addToCart(product)">Ajouter au panier</button>
+      <input 
+          type="number"
+          [(ngModel)]="product.selectedQuantity"
+          min="0"
+          class="form-control"
+          style="max-width: 100px; display: inline-block; margin-right: 0.5rem; margin-top: 10px;"
+          placeholder="0">
+    </div>
   </div>
 </div>

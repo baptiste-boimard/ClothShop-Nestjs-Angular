@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=clothshop
+      - POSTGRES_USER=clothshop
+      - POSTGRES_PASSWORD=clothshop
+    volumes:
+      # Monte le script d'initialisation pour créer les tables et insérer des données
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      # Volume pour persistance des données PostgreSQL
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clothshop"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nestjs:
+    build: ./backend
+    depends_on:
+      postgres:
+        condition: service_healthy  # Attend que PostgreSQL soit opérationnel
+    environment:
+      # Variables d'environnement pour la connexion à la BDD
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=clothshop
+      - DB_PASSWORD=clothshop
+      - DB_NAME=clothshop
+      - SECRET_KEY=secret
+    ports:
+      - "3000:3000"
+
+  angular:
+    build: ./frontend
+    depends_on:
+      - nestjs  # Si votre frontend a besoin de l'API NestJS pour fonctionner (optionnel)
+    ports:
+      - "4200:80"  # Expose le port 80 du container sur le port 4200 de l'hôte
+
+volumes:
+  pgdata:

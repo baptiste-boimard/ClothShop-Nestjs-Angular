@@ -45,8 +45,9 @@ export class CartComponent implements OnInit {
         if(data) {
           const cartItems: Cart[] = data;
           const isValidated = cartItems.some(cart => cart.isValidate === true)
-          this.isCartValided = isValidated;        }
-        this.cartItems = data;
+          this.isCartValided = isValidated;        
+        }
+          this.cartItems = data;
       },
       error: (err) => {
         console.error('Erreur lors de la récupération du panier:', err);
