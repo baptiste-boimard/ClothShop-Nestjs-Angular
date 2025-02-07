@@ -24,7 +24,7 @@ services:
     build: ./backend
     depends_on:
       postgres:
-        condition: service_healthy  # Attend que PostgreSQL soit opérationnel
+        condition: service_healthy
     environment:
       # Variables d'environnement pour la connexion à la BDD
       - DB_HOST=postgres
@@ -39,9 +39,9 @@ services:
   angular:
     build: ./frontend
     depends_on:
-      - nestjs  # Si votre frontend a besoin de l'API NestJS pour fonctionner (optionnel)
+      - nestjs
     ports:
-      - "4200:80"  # Expose le port 80 du container sur le port 4200 de l'hôte
+      - "4200:80"
 
 volumes:
   pgdata:

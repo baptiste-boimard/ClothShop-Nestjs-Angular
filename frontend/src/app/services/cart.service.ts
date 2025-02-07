@@ -17,21 +17,14 @@ export class CartService {
   }
 
   getAllCarts(idUser?: number): Observable<Cart[]> {
-    console.log('getProducts service');
     return this.http.get<Cart[]>(`${this.apiUrl}/cart/allcarts${idUser}`, {  headers: this.headers });
   }
-
-//   deleteProduct(id: number): Observable<any> {
-//     console.log('getProducts service');
-//     return this.http.delete(`${this.apiUrl}/products/deleteproduct${id}`);
-//   }
 
   createCart(idUser: number, idProduct: number, quantity: number): Observable<Cart> {
     return this.http.post<Cart>(`${this.apiUrl}/cart/createcart`, { idUser, idProduct, quantity }, {  headers: this.headers });	
   }
 
   validateCart(cartItems: Cart[]): Observable<any> {
-    console.log('validateCart service');
     return this.http.post(`${this.apiUrl}/cart/validatecart`, cartItems);
   }
 }

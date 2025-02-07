@@ -28,7 +28,7 @@
       </button>
 
       <div class="text-center mt-2">
-        <a href="#" (click)="toggleMode()">
+        <a href="#" (click)="toggleMode(); $event.preventDefault()">
           {{ isLogin ? "Pas encore inscrit ?" : "Déjà un compte ?" }}
         </a>
       </div>

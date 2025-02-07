@@ -7,13 +7,10 @@ import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 
 @Module({
   imports: [
-    // Importez le JwtModule afin que JwtService soit disponible.
-    // Vous pouvez utiliser une configuration minimale ou importer la configuration globale.
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'votre_secret', // ou utilisez la configuration adaptée
+      secret: process.env.JWT_SECRET || 'votre_secret',
       signOptions: { expiresIn: '60s' },
     }),
-    // Autres modules dont vous avez besoin
   ],
   controllers: [AdminController],
   providers: [AdminService, RolesGuard, JwtAuthGuard],

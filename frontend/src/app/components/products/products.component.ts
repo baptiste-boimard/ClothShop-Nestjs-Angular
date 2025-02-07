@@ -69,7 +69,6 @@ export class ProductsComponent implements OnInit {
     if(idUser != undefined) {
       this.cart.createCart(idUser, idProduct, quantity).subscribe({
         next: (data) => {
-          console.log('Produit ajouté au panier:', data);
         },
         error: (err) => {
           console.error('Erreur lors de l\'ajout au panier:', err);

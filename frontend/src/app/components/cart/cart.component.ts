@@ -37,16 +37,13 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     // Récupérarer l'id user
     const payload = this.authService.getCurrentUserRole();
-    console.log('Payload:', payload);
 
     this.isAdmin = payload?.role === 'admin'; 
     
     const idUser = payload?.id;
-    console.log('ID utilisateur:', idUser);
 
     this.cartService.getAllCarts(idUser).subscribe({
       next: (data) => {
-        console.log('Panier récupéré:', data);
 
         if(data) {
           const cartItems: Cart[] = data;
@@ -65,11 +62,9 @@ export class CartComponent implements OnInit {
   }
 
   validateCart(): void {
-    console.log('Validation du panier:', this.cartItems);
     
     this.cartService.validateCart(this.cartItems).subscribe({
       next: (data) => {
-        console.log('Panier validé:');
         this.createdAt = new Date();
         this.isCartValided = true;
       },

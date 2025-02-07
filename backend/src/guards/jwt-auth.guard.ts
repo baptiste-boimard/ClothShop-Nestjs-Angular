@@ -12,7 +12,7 @@ interface JwtPayload {
 }
 
 interface AuthenticatedRequest extends Request {
-  user?: any; // 🔥 Ajoute `user` à l'objet `Request`
+  user?: any;
 }
 
 @Injectable()
@@ -26,15 +26,12 @@ export class JwtAuthGuard implements CanActivate {
     if (!authHeader) return false;
 
     const token = authHeader.split(' ')[1];
-    console.log('token', token);
 
     try {
       const payload: JwtPayload = this.jwtService.verify<JwtPayload>(token, {
         secret: process.env.SECRET_KEY,
       });
-      console.log('sdqsdqd', payload);
       request.user = payload;
-      console.log('request.user', request.user);
       return true;
     } catch (error) {
       console.log(error);

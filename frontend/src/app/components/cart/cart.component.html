@@ -51,7 +51,7 @@
         </tbody>
       </table>
       <div class="cart-total">
-        <p style="margin-left: 25rem;">Total : {{ getTotal() }} €</p>
+        <p style="margin-left: 25rem;">Total : {{ getTotal() | number:'1.2-2' }} €</p>
       </div>
       <button *ngIf="!isCartValided" type="button" class="btn btn-success" (click)="validateCart()">Valider votre panier</button>
       <p *ngIf="isCartValided">Votre panier est validé, votre commande est en cours</p>

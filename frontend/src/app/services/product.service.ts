@@ -18,23 +18,18 @@ export class ProductService {
 
   
   getProducts(): Observable<Product[]> {
-    console.log('getProducts service');
     return this.http.get<Product[]>(`${this.apiUrl}/products/allproducts`, {  headers: this.headers });
   }
 
   deleteProduct(id: number): Observable<any> {
-    console.log('getProducts service');
     return this.http.delete(`${this.apiUrl}/products/deleteproduct${id}`, {  headers: this.headers });
   }
 
-  // Méthode pour créer un nouveau produit
   createProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(`${this.apiUrl}/products/createproduct`, product, {  headers: this.headers });
   }
 
-  // Méthode pour mettre à jour un produit existant
   updateProduct(id: number, product: Partial<Product>): Observable<Product> {
-    
     return this.http.put<Product>(`${this.apiUrl}/products/updateproduct${id}`, product, {  headers: this.headers });
   }
 }

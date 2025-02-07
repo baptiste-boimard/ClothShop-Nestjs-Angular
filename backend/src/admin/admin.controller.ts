@@ -7,7 +7,6 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 export class AdminController {
   @Get('getAdminData')
   getAdminData() {
-    console.log('👮‍♂️ Données admin récupérées');
     return { message: 'Bienvenue Admin !' };
   }
 }

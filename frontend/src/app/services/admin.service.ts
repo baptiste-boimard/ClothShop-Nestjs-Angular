@@ -11,10 +11,8 @@ export class AdminService {
   constructor(private http: HttpClient) {}
 
   getAdminData(): Observable<{ message: string }> {
-    console.log('Je suis dans le service admin');
     
     const token = localStorage.getItem('token');
-    console.log(token);
     
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 

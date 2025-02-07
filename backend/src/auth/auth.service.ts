@@ -15,8 +15,6 @@ export class AuthService {
   ) {}
 
   async register(email: string, password: string) {
-    console.log('register service', email, password);
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = this.userRepository.create({
@@ -29,8 +27,6 @@ export class AuthService {
   }
 
   async login(email: string, password: string) {
-    console.log('login service', email, password);
-
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user || !(await bcrypt.compare(password, user.password))) {

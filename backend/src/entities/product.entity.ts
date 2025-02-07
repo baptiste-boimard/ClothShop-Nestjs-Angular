@@ -11,7 +11,7 @@ export class Product {
   @Column()
   description: string;
 
-  @Column('decimal') // Utilisation du type decimal pour les prix
+  @Column('decimal')
   price: number;
 
   @Column()

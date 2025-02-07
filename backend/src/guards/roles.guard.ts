@@ -1,5 +1,4 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
@@ -10,10 +9,7 @@ interface JwtPayload {
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(
-    private jwtService: JwtService,
-    private reflector: Reflector,
-  ) {}
+  constructor(private jwtService: JwtService) {}
 
   canActivate(context: ExecutionContext): boolean {
     const requiredRole = 'admin'; // 🔥 Seul l'admin peut accéder

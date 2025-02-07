@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { NgIf } from '@angular/common';
@@ -6,7 +6,6 @@ import { AuthService, JwtContent } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
-import { Product } from '../../interfaces/product.interface';
 
 
 @Component({
@@ -16,7 +15,7 @@ import { Product } from '../../interfaces/product.interface';
   standalone: true,
   imports: [ReactiveFormsModule, RouterOutlet, NgIf],
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent {
   authForm: FormGroup;
   isLogin = true;
 
@@ -38,7 +37,6 @@ export class AuthComponent implements OnInit {
 
   onSubmit() {
     if (this.authForm.invalid) return;
-    console.log('Form submitted:', this.authForm.value);
 
     const { email, password } = this.authForm.value;
     
@@ -49,7 +47,6 @@ export class AuthComponent implements OnInit {
           
           if(res.access_token) {
             const decoded = jwt_decode.jwtDecode(res.access_token);
-            console.log('decoded token:', decoded);
             
             this.authService.setCurrentUser(decoded as JwtContent);
           }
@@ -57,7 +54,7 @@ export class AuthComponent implements OnInit {
           this.toastr.success('Connexion réussie');
           this.router.navigate(['/products']).then(() => {
           }).catch((err) => {
-            console.error("❌ Erreur lors de la redirection:", err);
+            console.error("Erreur lors de la redirection:", err);
           });
         },
         error: (err) => {
@@ -67,7 +64,6 @@ export class AuthComponent implements OnInit {
     } else {
       (this.authService.register(email, password)).subscribe({
         next: (res) => {
-          console.log('Inscription réussie:', res);
           this.toastr.success('Inscription réussie');
         },
         error: (err) => {
@@ -76,12 +72,6 @@ export class AuthComponent implements OnInit {
         },
       });
     }
-  }
-
-  async ngOnInit() {
-    // const data = await this.apiService.getData();
-    const data = "coucou";
-    console.log(data);
   }
 }
 
